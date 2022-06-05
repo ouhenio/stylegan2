@@ -697,6 +697,7 @@ def create_from_images(tfrecord_dir, image_dir, shuffle, resize=None):
     img = np.asarray(PIL.Image.open(image_filenames[0]))
     print(img.shape)
     shape = img.shape
+    print(resize)
     resolution = img.shape[0]
     channels = img.shape[2] if img.ndim == 3 else 1
     if img.shape[1] != resolution:
