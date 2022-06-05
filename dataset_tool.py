@@ -711,13 +711,13 @@ def create_from_images(tfrecord_dir, image_dir, shuffle, resize=None):
         order = tfr.choose_shuffled_order() if shuffle else np.arange(len(image_filenames))
         for idx in range(order.size):
             img = np.asarray(PIL.Image.open(image_filenames[order[idx]]))
+            if resize:
+                img = img.resize((resize, resize), PIL.Image.ANTIALIAS)
             if channels == 1:
                 print("Greyscale, adding dimension:", image_filenames[order[idx]], img.shape)
                 img = img[np.newaxis, :, :] # HW => CHW
             else:
                 img = img.transpose([2, 0, 1]) # HWC => CHW
-            if resize:
-                img = img.resize((resize, resize), PIL.Image.ANTIALIAS)
             # if img.shape != shape:
             #     print("Wrong shape:", image_filenames[order[idx]], img.shape, "should be", shape)
             #     continue
