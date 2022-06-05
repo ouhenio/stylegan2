@@ -712,7 +712,7 @@ def create_from_images(tfrecord_dir, image_dir, shuffle, resize=None):
         for idx in range(order.size):
             img = np.asarray(PIL.Image.open(image_filenames[order[idx]]))
             if resize:
-                img = img.resize((resize, resize), PIL.Image.ANTIALIAS)
+                img = img = np.array(PIL.Image.fromarray(img).resize((resize, resize))) 
             if channels == 1:
                 print("Greyscale, adding dimension:", image_filenames[order[idx]], img.shape)
                 img = img[np.newaxis, :, :] # HW => CHW
