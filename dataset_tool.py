@@ -688,7 +688,7 @@ def create_celeba(tfrecord_dir, celeba_dir, cx=89, cy=121):
 
 #----------------------------------------------------------------------------
 
-def create_from_images(tfrecord_dir, image_dir, shuffle):
+def create_from_images(tfrecord_dir, image_dir, shuffle, resize=None):
     print('Loading images from "%s"' % image_dir)
     image_filenames = sorted(glob.glob(os.path.join(image_dir, '*')))
     if len(image_filenames) == 0:
@@ -715,6 +715,8 @@ def create_from_images(tfrecord_dir, image_dir, shuffle):
                 img = img[np.newaxis, :, :] # HW => CHW
             else:
                 img = img.transpose([2, 0, 1]) # HWC => CHW
+            if resize:
+                img = img.resize((resize, resize), PIL.Image.ANTIALIAS)
             # if img.shape != shape:
             #     print("Wrong shape:", image_filenames[order[idx]], img.shape, "should be", shape)
             #     continue
