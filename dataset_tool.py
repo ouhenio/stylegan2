@@ -715,9 +715,9 @@ def create_from_images(tfrecord_dir, image_dir, shuffle):
                 img = img[np.newaxis, :, :] # HW => CHW
             else:
                 img = img.transpose([2, 0, 1]) # HWC => CHW
-            if img.shape != shape:
-                print("Wrong shape:", image_filenames[order[idx]], img.shape, "should be", shape)
-                continue
+            # if img.shape != shape:
+            #     print("Wrong shape:", image_filenames[order[idx]], img.shape, "should be", shape)
+            #     continue
             tfr.add_image(img)
 
 #----------------------------------------------------------------------------
